@@ -1,6 +1,5 @@
 import {
   IonContent,
-  IonIcon,
   IonItem,
   IonLabel,
   IonList,
@@ -9,60 +8,55 @@ import {
   IonAccordion,
   IonAccordionGroup,
 } from '@ionic/react';
-import { useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  personOutline,
-  personSharp,
-  settingsOutline,
-  settingsSharp,
-  cartOutline,
-  cartSharp,
-  documentTextOutline,
-  documentTextSharp,
-} from 'ionicons/icons';
+  faCartShopping,
+  faUser,
+  faCog,
+  faList,
+} from '@fortawesome/free-solid-svg-icons'; 
 import './Menu.css';
 
 interface AppPage {
   url: string;
   title: string;
+  icon: any; 
 }
 
 const pedidosSubmenu: AppPage[] = [
-  { title: 'Estado de mi pedido', url: '/pedido/estado' },
-  { title: 'Lista de pedidos realizados', url: '/pedido/historial' },
+  { title: 'Estado de mi pedido', url: '/pedido/estado', icon: faList },
+  { title: 'Lista de pedidos realizados', url: '/pedido/historial', icon: faCartShopping },
 ];
 
 const perfilSubmenu: AppPage[] = [
-  { title: 'Consultar mi perfil', url: '/perfil/consultar' },
+  { title: 'Consultar mi perfil', url: '/perfil/consultar', icon: faUser },
 ];
 
 const appPages: AppPage[] = [
-  { title: 'Consultar carta', url: '/carta' },
-  { title: 'Ajustes', url: '/ajustes' },
+  { title: 'Consultar carta', url: '/carta', icon: faList },
+  { title: 'Ajustes', url: '/ajustes', icon: faCog },
 ];
 
 const Menu: React.FC = () => {
-  const location = useLocation();
-
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonAccordionGroup>
-          {/* Pedidos menu */}
+          
+          {/*Pedidos menu */}
           <IonAccordion value="pedidos">
             <IonItem slot="header" lines="none">
-              <IonIcon slot="start" ios={cartOutline} md={cartSharp} />
+              <FontAwesomeIcon icon={faCartShopping} style={{ marginRight: '8px' }} />
               <IonLabel>Pedidos</IonLabel>
             </IonItem>
             <IonList slot="content">
               {pedidosSubmenu.map((page, index) => (
                 <IonMenuToggle key={index} autoHide={true}>
-                  <IonItem
-                    className={location.pathname === page.url ? 'selected' : ''}
-                    routerLink={page.url}
-                    lines="none"
-                    detail={false}
-                  >
+                  <IonItem routerLink={page.url} lines="none" detail={false}>
+                    <FontAwesomeIcon
+                      icon={page.icon}
+                      style={{ marginRight: '8px' }}
+                    />
                     <IonLabel>{page.title}</IonLabel>
                   </IonItem>
                 </IonMenuToggle>
@@ -70,21 +64,20 @@ const Menu: React.FC = () => {
             </IonList>
           </IonAccordion>
 
-          {/* Profile menu */}
+          {/* Perfil menu */}
           <IonAccordion value="perfil">
             <IonItem slot="header" lines="none">
-              <IonIcon slot="start" ios={personOutline} md={personSharp} />
+              <FontAwesomeIcon icon={faUser} style={{ marginRight: '8px' }} />
               <IonLabel>Perfil</IonLabel>
             </IonItem>
             <IonList slot="content">
               {perfilSubmenu.map((page, index) => (
                 <IonMenuToggle key={index} autoHide={true}>
-                  <IonItem
-                    className={location.pathname === page.url ? 'selected' : ''}
-                    routerLink={page.url}
-                    lines="none"
-                    detail={false}
-                  >
+                  <IonItem routerLink={page.url} lines="none" detail={false}>
+                    <FontAwesomeIcon
+                      icon={page.icon}
+                      style={{ marginRight: '8px' }}
+                    />
                     <IonLabel>{page.title}</IonLabel>
                   </IonItem>
                 </IonMenuToggle>
@@ -96,24 +89,10 @@ const Menu: React.FC = () => {
           <IonList>
             {appPages.map((page, index) => (
               <IonMenuToggle key={index} autoHide={true}>
-                <IonItem
-                  className={location.pathname === page.url ? 'selected' : ''}
-                  routerLink={page.url}
-                  lines="none"
-                  detail={false}
-                >
-                  <IonIcon
-                    slot="start"
-                    ios={
-                      page.title === 'Consultar carta'
-                        ? documentTextOutline
-                        : settingsOutline
-                    }
-                    md={
-                      page.title === 'Consultar carta'
-                        ? documentTextSharp
-                        : settingsSharp
-                    }
+                <IonItem routerLink={page.url} lines="none" detail={false}>
+                  <FontAwesomeIcon
+                    icon={page.icon}
+                    style={{ marginRight: '8px' }}
                   />
                   <IonLabel>{page.title}</IonLabel>
                 </IonItem>
