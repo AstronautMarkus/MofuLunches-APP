@@ -1,0 +1,7 @@
+{
+  "name": "MofuLunches",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
